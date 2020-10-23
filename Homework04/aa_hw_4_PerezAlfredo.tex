@@ -1,0 +1,267 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Michael Scherger
+%
+% Analysis of Algorithms
+%
+% Homework Assignment #4
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Score Card and Answer Sheets
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,addpoints]{exam}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Set Page Size
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Renew Commands
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand\refname{}					% for bibliography
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Begin Document
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\pagestyle{empty}
+
+\noindent{\large\bfseries Name: Afredo Perez{\hrulefill}}\\
+\noindent{\large\bfseries COSC 40403 - Analysis of Algorithms: Fall 2020: Homework 4}\\
+\noindent{\large\bfseries Due: 23:30 on 9/14 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Score Card and Answer Sheets
+%
+% Comment out one-or-the-other to show or not-show the answers.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\printanswers
+\noprintanswers
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Score Card
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\ifprintanswers
+%\noindent
+%\begin{center}
+%	\gradetable[v][questions]
+%\end{center}
+%%\newpage
+%\bigskip
+%\fi
+
+
+Some of the questions below require you to draw a heap or to trace through a heap algorithm on a specific array.  You may do so using \LaTeX packages that you can research and learn how to use.  You may also use a computer drawing program (i.e. PowerPoint or similar), create your diagrams, and export them as a PDF file (I find that it also helps to trim the PDF file using graphics software.)  Then you can import the PDF file into your solution.
+\begin{questions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5]
+What are the $\floor{n/2}$ minimum and maximum number of elements in a heap of height $h$?
+\newline
+
+At most, it is a perfect binary tree, which is 2^(h+1) − 1; at least, there is only one at the last level, \newline
+ which is 2^h.
+
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5]
+Show that an $n$-element heap has height $\floor{lg n}$.
+
+\begin{solutionorbox}
+Place answer here.
+\end{solutionorbox}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5]
+Is the array with values $\left<23, 17, 14, 6, 13, 10, 1, 5, 7, 12\right>$ a max-heap?  Show your work by using computer software to draw the heap.
+
+In a max-heap every node should be greater than its child, node with value of 6 is less than its child which is node with a value of 7. Hence it is not a max heap.
+\begin{lstlisting}
+    def extractMax(self):  
+		popped = self.Heap[self.FRONT]
+		self.Heap[self.FRONT] = self.Heap[self.size]
+		self.size -= 1
+		self.maxHeapify(self.FRONT)          
+		return popped
+
+\end{lstlisting}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[10]
+Illustrate (using computer software) the operation of $\proc{Max-Heapify}{(A,3)}$ on the array $A = \left< 27, 17, 3, 16, 13, 10, 1, 5, 7, 12, 4, 8, 9, 0\right>$.  Show how a heap element will trickle down the heap level-by-level.
+
+\begin{center}
+	Illustration attached in file.
+\end{center}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5]
+Starting with the procedure $\proc{Max-Heapify}{(A,i)}$, write pseudocode for the procedure $\proc{Min-Heapify}{(A,i)}$, which performs the corresponding manipulation on a min-heap.  How does the running time of $\proc{Min-Heapify}$ compare to that of $\proc{Max-Heapify}$?
+
+\begin{lstlisting}
+MIN-HEAPIFY(A, i):
+	l <- LEFT(i)
+	r <- RIGHT(i)
+	smallest <- i
+	if l ≤ heap-size[A] and A[l] < A[i]:
+		then smallest <- l
+	if r ≤ heap-size[A] and A[r] < A[smallest]:
+		then smallest <- r
+	if smallest ≠ i:
+		then swap(A[i], A[smallest])
+			MIN-HEAPIFY(A, smallest)
+\end{lstlisting}
+\begin{center}
+	The running time is the same. Actually, the algorithm is the same with the exceptions of two comparisons and some names.
+\end{center}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[10]
+Illustrate (using computer software) the operation of $\proc{Build-Max-Heap}$ on the array $A = \left< 5, 3, 17, 10, 84, 19, 6, 22, 9\right>$.  Each diagram should show the placement of an array element into its final position in the heap.  
+
+\begin{center}
+	Illustration attached in file
+\end{center}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5]
+Why do we want the loop index $i$ in line 3 of $\proc{Build-Max-Heap}$ to decrease from $\floor{A.length/2}$ to 1 rather than increase from 1 to $\floor{A.length/2}$?
+
+\begin{center}
+	If we start from 1, because its subtree is not a maximum heap, we can't follow this order.
+\end{center}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[10]
+Illustrate (using computer software) the operation of $\proc{Heapsort}$ on the array $A = \left< 5, 13, 2, 25, 7, 17, 20, 8, 4 \right>$.  Show the original input array, the heap after $\proc{Build-Heap}$, and then after each call to $\proc{Build-Max-Heap}$.
+
+\begin{center}	
+	Illustration attached in file
+\end{center}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5]
+What is the running time of $\proc{Heapsort}$ on an array $A$ of length $n$ that is already sorted in increasing order?  What about decreasing order?
+
+\begin{center}	
+For both ascending and descending order we have a run time of O(n lg n).
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{questions}
+\end{document}

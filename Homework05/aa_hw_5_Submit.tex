@@ -1,0 +1,241 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Analysis of Algorithms
+%
+% Homework Assignment #5
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Score Card and Answer Sheets
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[addpoints,11pt]{exam}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Begin Document
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\pagestyle{empty}
+
+
+\noindent{\large\bfseries Name: \hrulefill ALFREDO PEREZ}\\
+\noindent{\large\bfseries COSC 40403 - Analysis of Algorithms: Homework 5}\\
+\noindent{\large\bfseries Due: 23:30 on September 21}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Score Card and Answer Sheets
+%
+% Comment out one-or-the-other to show or not-show the answers.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\printanswers
+\noprintanswers
+
+
+Some of the questions below require you to draw a graph or to trace through a graph algorithm.  Please use \LaTeX or another computer drawing program (i.e. PowerPoint or similar), create your diagrams.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Begin Questions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{questions}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Question
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5] Given an adjacency-list representation of a directed graph, explain how long does it take to compute the out-degree of every vertex.  Explain how long does it take to compute the in-degree?
+\begin{center}
+	The time taken to compute the out-degree of every vertex of a graph using a general adjacency list is O(V+E), where V is the number of vertices in the graph and E is the number of edges in the graph. \newline
+	
+	The time taken to compute the in-degree of a vertex of a graph using a general adjacency list is O(V+E), where V is the number of vertices in the graph and E is the number of edges in the graph.
+	
+\end{center}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Question
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5] Give an adjacency-list representation for a complete binary tree with 15 vertices.  Give an equivalent adjacency-matrix representation.  Assume that vertices are numbered from 1 to 15 as in a binary heap.
+\begin{center}
+Adjacency-Matrix Representation attached in file.
+\end{center}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Question
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5] Most graph algorithms that take an adjacency-matrix representation as input require time $\Omega(V^2)$, but there are some exceptions.  Show how to determine whether a directed graph $G$ contains a \textbf{\textit{universal sink}} (a vertex with in-degree $\abs{V}-1$ and out-degree 0) in time $O(V)$, given an adjacency matrix for $G$.  Explain how this time complexity may change if the graph is represented in an adjacency list.
+\begin{center}
+	What we can do to find out a sink is pick an arbitrary vertex, if the adjacency list of this vertex is null, then it is universal sink otherwise start traversing its adjacency list, for each element in adjacency list, we check if the list of that element is null or not. Since the Universal sink is reachable from every vertex, it must exist in the adjacency list of any arbitrary vertex. So, it is guaranteed to find the Universal sink within this list. Any node in the graph can have at most O(V) entries in its adjacency list. So, time complexity is O(V).
+\end{center}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Question
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5]
+The BFS algorithm presented in class uses a queue as the data structure for storing discovered vertices.  Explain what would happen if you change the data structures to use a stack instead of a queue.  Use the graph example presented in lecture to demonstrate your solution.   
+
+\begin{center}
+	If you replace the queue with a stack, you will have Depth First Search (DFS), which will pick one path, and go in it as deep as it can, then pick another path and so on so forth, which is not optimal for finding the shortest path.
+\end{center}
+	
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Question
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5] Exercise 3.1 on page 107.
+\begin{center}
+	a,b,c,d,e,f \newline
+	a,d,e,b,c,f \newline
+	a,b,d,c,e,f \newline
+	a,d,b,c,e,f \newline
+	a,b,d,e,c,f \newline
+	a,d,b,e,c,f \newline
+	
+\end{center}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Question
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5] Exercise 3.2 on page 107.
+\begin{lstlisting}
+	bool DFS(G)
+		for each vertex u belongs to G.V
+			u.color = WHITE
+			u.parent = NULL
+		bool flag = FALSE // initilise flag as false and assign true if loop found
+		for each vertex u belongs to G.V
+			if u.color == WHITE
+				flag = DFS-VISIT(G,u)
+			if flag == TRUE
+				return TRUE // loop found, hence return TRUE
+	
+	bool DFS-VISIT(G,u)
+		u.color=GRAY
+		bool flag = FALSE;
+		for each v belongs to G.Adj[u] explore edge (u,v)
+		if v.colour == GRAY and u.parent != v
+			return TRUE // loop found
+	
+		if v.color == WHITE
+			v.parent =u
+			flag = DFS-VISIT(G,v)
+		if flag == TRUE
+			return TRUE
+		u.color = BLACK
+		return FALSE 
+\end{lstlisting}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Question
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[5]
+Trace through the $\proc{Topological-Sort}$ algorithm and show the ordering of vertices produced on the following DAG.  Assume your \proc{DFS} algorithm processes the nodes in alphabetical order and the edges for each node in the adjacency list are also listed in alphabetical order.\\
+\begin{center}
+	After the topological sort the result would be: p, n, o, s, m, r, y, v, x, w, z, u, q ,t
+\end{center}  
+
+\begin{solutionorbox}
+	Place answer here.
+\end{solutionorbox}
+
+\ifprintanswers
+\newpage
+\else
+\bigskip
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Question
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[10] Exercise 3.8 on page 109-110.
+
+\begin{center}
+	The claim is false
+	
+\end{center}
+
+
+\begin{solutionorbox}
+	Place answer here.
+\end{solutionorbox}
+
+
+
+\end{questions}
+\end{document}
